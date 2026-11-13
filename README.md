@@ -1,127 +1,165 @@
 # 🌱 Smart Agriculture Monitoring System
 
-## Project Overview
+A real-time IoT-based agriculture monitoring system built using **Python, Apache Kafka, Apache Cassandra, and Streamlit**.
 
-The Smart Agriculture Monitoring System is an IoT-based project that monitors agricultural conditions using simulated sensor data, Apache Kafka and Apache Cassandra.
+This project simulates farm sensors that collect environmental data and helps monitor soil moisture, temperature, and humidity. Sensor readings are transmitted through Kafka, stored in Cassandra, and displayed on an interactive dashboard.
 
-It collects soil moisture, temperature and air humidity readings, processes them in real time and stores them in a database. A Streamlit dashboard displays the readings through metrics, graphs and alerts.
+## 🚀 Project Overview
 
-## Technologies Used
+The Smart Agriculture Monitoring System helps farmers monitor important environmental conditions and identify situations that may require attention.
 
-- Python 3.10
-- Apache Kafka
-- Apache Cassandra
-- Docker and Docker Compose
-- Streamlit
-- Pandas
-- Plotly
+It demonstrates how real-time data processing and distributed technologies can be used in smart farming.
 
-## System Architecture
+## 🏗️ System Architecture
 
-**Python Producer → Apache Kafka → Python Consumer → Apache Cassandra → Streamlit Dashboard**
+**Data Flow:**
 
-### Working
+Python Sensor Producer → Apache Kafka → Python Consumer → Apache Cassandra → Streamlit Dashboard
 
-1. **Producer:** Generates simulated agriculture sensor readings.
-2. **Kafka:** Transfers sensor data through the `agriculture-sensor-data` topic.
-3. **Consumer:** Receives readings, checks their status and processes them.
-4. **Cassandra:** Stores the sensor readings in the `agriculture` keyspace.
-5. **Dashboard:** Displays sensor values, alerts, graphs and historical records.
+### How It Works
 
-## Features
+1. **Sensor Producer:** Generates simulated soil moisture, temperature, and humidity readings.
+2. **Apache Kafka:** Receives and transports real-time sensor messages.
+3. **Python Consumer:** Reads Kafka messages, processes sensor data, and identifies alerts.
+4. **Apache Cassandra:** Stores sensor readings for future analysis.
+5. **Streamlit Dashboard:** Displays the latest readings, alerts, graphs, and historical data.
 
-- Real-time sensor data processing
-- Soil moisture monitoring
-- Temperature monitoring
-- Air humidity monitoring
-- Dry soil and high-temperature alerts
-- Sensor history graphs
-- Automatic dashboard refresh
-- CSV data download
+## 🛠️ Technologies Used
 
-## Project Structure
+| Technology | Purpose |
+|---|---|
+| Python | Application development |
+| Apache Kafka | Real-time data streaming |
+| Apache Cassandra | NoSQL database |
+| Streamlit | Interactive dashboard |
+| Pandas | Data handling |
+| Plotly | Data visualization |
+| Docker | Running Kafka and Cassandra |
+| Git & GitHub | Version control |
 
-```text
-Smart_Agriculture_Monitoring_System/
-│
-├── producer.py
-├── consumer.py
-├── dashboard.py
-├── database.py
-├── requirements.txt
-├── docker-compose.yml
-├── README.md
-└── screenshots/
-```
+## ✨ Key Features
 
-## Installation and Execution
+- Real-time simulated sensor data generation.
+- Kafka-based data streaming.
+- Cassandra database integration.
+- Soil moisture monitoring.
+- Temperature and humidity monitoring.
+- Automatic condition classification.
+- Dashboard with charts and latest readings.
+- Historical sensor data storage.
+- CSV data export.
 
-### 1. Start Docker containers
+## 📸 Project Screenshots
+
+### Docker Containers
+![Docker Containers](screenshots/01_docker_containers.png.png)
+
+### Sensor Producer
+![Producer Output](screenshots/producer.png)
+
+### Kafka Consumer
+![Consumer Output](screenshots/consumer.png)
+
+### Monitoring Dashboard
+![Dashboard](screenshots/dashboard.png)
+
+## ⚙️ Installation and Setup
+
+### 1. Clone the Repository
 
 ```bash
-docker compose up -d
+git clone https://github.com/khushboo746/Smart-Agriculture-Monitoring-System.git
+cd Smart-Agriculture-Monitoring-System
 ```
 
-### 2. Activate Python environment
+### 2. Create a Virtual Environment
+
+```bash
+python -m venv venv310
+```
+
+Activate it on Windows:
 
 ```powershell
 .\venv310\Scripts\Activate.ps1
 ```
 
-### 3. Start the Producer
+### 3. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Start Docker Services
+
+Make sure Docker Desktop is running.
+
+```bash
+docker compose up -d
+```
+
+### 5. Create the Kafka Topic
+
+```bash
+docker exec agriculture-kafka /opt/kafka/bin/kafka-topics.sh --create --topic agriculture-sensor-data --bootstrap-server localhost:9092
+```
+
+If the topic already exists, you can skip this step.
+
+### 6. Run the Sensor Producer
+
+Open a terminal and execute:
 
 ```bash
 python producer.py
 ```
 
-### 4. Start the Consumer
+### 7. Run the Consumer
 
-Open another terminal and activate the environment, then run:
+Open another terminal and execute:
 
 ```bash
 python consumer.py
 ```
 
-### 5. Start the Dashboard
+### 8. Launch the Dashboard
 
-Open another terminal, activate the environment and run:
+Open another terminal and execute:
 
 ```bash
-python -m streamlit run dashboard.py
+streamlit run dashboard.py
 ```
 
-Open the dashboard at:
+The dashboard will open in your browser.
 
-http://localhost:8501
+## 🚨 Alert Conditions
 
-## Database Details
+The project uses demonstration thresholds:
 
-- Database: Apache Cassandra
-- Keyspace: `agriculture`
-- Table: `sensor_readings`
+- Soil moisture below 30%: Dry Soil Alert.
+- Temperature above 35°C: High Temperature Alert.
+- Otherwise: Normal.
 
-## Alert Conditions
+These are example thresholds and should be adjusted according to crop requirements and actual agricultural conditions.
 
-- Soil moisture below 30%: Dry Soil
-- Temperature above 35°C: High Temperature
-- Otherwise: Normal
+## 🔮 Future Improvements
 
-*These are demonstration thresholds and should be adjusted according to crop requirements.*
+- Integration with ESP32 and physical sensors.
+- Live soil moisture sensor readings.
+- Weather API integration.
+- AI-based crop recommendations.
+- Smart irrigation automation.
+- Mobile application integration.
 
-## Conclusion
+## 👩‍💻 Author
 
-This project demonstrates how real-time data processing and distributed databases can be used in smart agriculture. It helps monitor environmental conditions and provides useful information for agricultural decision-making.
+**Khushboo Chauhan**
 
-## Future Scope
+B.Sc. Artificial Intelligence Student
 
-- Integration with ESP32 and real physical sensors
-- Automatic irrigation system
-- Mobile application integration
-- Crop-specific alert thresholds
-- Weather forecasting integration
+- GitHub: [khushboo746](https://github.com/khushboo746)
+- LinkedIn: [Khushboo Chauhan](https://www.linkedin.com/in/khushboo-chauhan-15b1453a0/)
 
 ---
-**Project:** Smart Agriculture Monitoring System  
-**Technology:** Apache Kafka and Apache Cassandra  
-**Category:** Internet of Things (IoT) and Big Data Analytics
-Save these screenshots inside your screenshots folder:
+
+⭐ If you find this project interesting, feel free to explore the repository!
